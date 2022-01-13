@@ -1,2 +1,2 @@
-# wordle-solve
-A commandline script to solve your daily Wordle-puzzle 
+# Wordle solver
+A Python command line script to solve your daily Wordle-puzzle.
