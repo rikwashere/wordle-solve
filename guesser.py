@@ -12,7 +12,7 @@ word_dict = {}
 for word in five_letter_words:
 	word_dict[word] = [ord(letter) for letter in word]
 
-good_response = True
+good_response = False
 
 while True:
 	# collect guesses and responses and check if they're valid
