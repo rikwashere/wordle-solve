@@ -1,8 +1,17 @@
-from nltk.corpus import reuters
+import nltk
+from nltk.corpus import reuters, brown, gutenberg
 import re
 
-# corpus van miljoenen woorden van Reuters
-words = reuters.words()
+words = []
+
+for corp in nltk.corpus.gutenberg.fileids():
+	print('\t', corp, len(gutenberg.words(corp)))
+	words += set(w.lower() for w in gutenberg.words(corp))
+
+# corpus van miljoenen woorden van Reuters en Brown
+for corp in [reuters.words(), brown.words()]:
+	print('\t', corp, len(corp))
+	words += [w.lower() for w in corp]
 
 # alleen vijf letterigen
 five_letter_words = list(set([word.lower() for word in words if len(word) == 5]))
@@ -12,9 +21,11 @@ word_dict = {}
 for word in five_letter_words:
 	word_dict[word] = [ord(letter) for letter in word]
 
-good_response = False
+print('We have a database of %i possible five letter words' % len(word_dict))
 
-while True:
+good_response, finished = False, False
+
+while finished == False:
 	# collect guesses and responses and check if they're valid
 	while good_response == False:
 		print('Please type guess...')
@@ -69,9 +80,7 @@ while True:
 	# quit if done
 	if len(word_dict) == 1:
 		print('Correct guess found!')
-		break
+		finished = True
 
 	# or gather new guess and response
 	good_response = False
-
- 
